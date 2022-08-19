@@ -7,6 +7,8 @@ class Libyang < Formula
 
   depends_on "cmake" => :build
 
+  depends_on "pcre2"
+
   def install
     mkdir "build" do
       system "cmake", "..", *std_cmake_args
