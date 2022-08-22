@@ -35,7 +35,7 @@ class Libyang < Formula
       }
     EOS
     system ENV.cc, "-I#{include}", testpath/"test.c",
-           "-L#{lib}", "-lyang", "-o", testpath/"test"
+           "-L#{lib}", "-lyang", "-o", "test"
     system "./test"
   end
 end
