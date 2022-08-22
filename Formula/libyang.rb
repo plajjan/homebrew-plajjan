@@ -17,6 +17,25 @@ class Libyang < Formula
   end
 
   test do
-    system "true"
+    (testpath/"test.c").write <<~EOS
+      #include <stdio.h>
+      #include <stdlib.h>
+
+      #include <libyang/libyang.h>
+
+      struct ly_ctx *ctx;
+
+      int main(int argc, char **argv) {
+          LY_ERR err;
+          err = ly_ctx_new(NULL, 0, &ctx);
+
+          if (ctx != 0)
+              exit(-1);
+          return 0;
+      }
+    EOS
+    system ENV.cc, "-I#{include}", testpath/"test.c",
+           "-L#{lib}", "-lyang", "-o", "test"
+    system "./test"
   end
 end
